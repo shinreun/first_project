@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+     <h1>가게 상세정보 등록</h1>
+    <div>
+        <form action="/store/detail/add" method="post" id="add_form" enctype="multipart/form-data">
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>가게 영업시간</td>
+                        <td>
+                            <th:block th:if="${inputdata != null}">
+                            <input style="width: 9cm;" type="text" name="sdiOpenClose" id="sdiOpenClose" th:value="${inputdata.siName}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input  style="width: 9cm;" type="text" name="sdiOpenClose" id="sdiOpenClose"></td>
+                            </th:block>
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td>가게 전화번호</td>
+                        <td colspan="2" style="width: 9cm;"><input style="width: 9cm;" type="phone" name="sdiPhone" id="sdiPhone"></td>
+                    </tr>
+                    <tr>
+                        <td>가게 주소</td>
+                        <td colspan="2" style="width: 9cm;"><input style="width: 9cm;" type="text" name="sdiAdress" id="address_kakao" readonly></td>
+                    </tr>
+                    <tr>
+                        <td>가게 상세주소</td>
+                        <td colspan="2" style="width: 9cm;"><input style="width: 9cm;" type="text" name="sdiAdress" id="sdiAdress"></td>
+                    </tr>
+                    <tr>
+                        <td>가게 결제정보</td>
+                        <td colspan="2">
+                          <select style="width: 9cm;" name="sdiPayment" id="sdiPayment">
+                              <option value="0">카드/현금</option>
+                              <option value="1">카드</option>
+                              <option value="2">현금</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>가게 포장가능 여부</td>
+                        <td colspan="2">
+                          <select style="width: 9cm;" name="sdiPacking" id="sdiPacking">
+                              <option value="1">가능</option>
+                              <option value="0">불가능</option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>가게 원산지 정보</td>
+                        <td colspan="2"><input  style="height: 4cm; width: 9cm;" type="text" name="sdiOrigin" id="sdiOrigin"></td>
+                    </tr>
+                    <tr>
+                        <td>사장님 말씀</td>
+                        <td colspan="2" style="height: 5cm; width: 10cm;"><input style="height: 4cm; width: 9cm;" type="text" name="sdiOwnerNotice" id="sdiOwnerNotice"></td>
+                    </tr>
+                    <tr>
+                        <td>상호명</td>
+                        <td colspan="2"><input style="width: 9cm;" type="text" name="biName" id="biName"></td>
+                    </tr>
+                    <tr>
+                        <td>사업자명</td>
+                        <td colspan="2"><input style="width: 9cm;" type="text" name="biOwner" id="biOwner"></td>
+                    </tr>
+                    <tr>
+                        <td>사업자 번호</td>
+                        <td colspan="2"><input style="width: 9cm;" type="text" name="biBusinessNumber" id="biBusinessNumber"></td>
+                    </tr>
+                    <tr>
+                        <td>사장님 말씀 이미지</td>
+                        <td colspan="2">
+                            <input type="file" id="file" name="file">
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td colspan="3">
+                            <input type="submit" value="등록">
+                            <!-- <button id="save">등록</button> -->
+                            <a href="/">메인으로</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <script>
+            window.onload = function(){
+            document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementById("address_kakao").value = data.address; // 주소 넣기
+                document.querySelector("input[name=sdiAdress]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+</script>
+        </form>
+    </div>
+</body>
+</html>

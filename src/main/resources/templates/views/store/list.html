@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<h1>가게 관리</h1>
+<body>
+    <table border="1"> 
+        <thead>
+            <th>번호</th>
+            <th>가게이름</th>
+            <th>가게 이미지</th>
+            <th>최소주문금액</th>
+            <th>할인가격</th>
+            <th>할인조건</th>
+            <th>세스코인증</th>
+        </thead>
+        <tbody>
+            <!-- <tr th:each="delivery : ${delivery_detail}"> -->
+            <tr th:each="store : ${store_detail}">
+            <td th:text="${store.siSeq}"></td>
+            <td th:text="${store.siName}"></td>
+            <td th:text="${store.siUri}"></td>
+            <td th:text="${store.siMinOrderPrice}"></td>
+            <td th:text="${store.siDiscountPrice}"></td>
+            <td th:text="${store.siDiscountCondition}"></td>
+            <td th:text="${store.siCleanInfo}"></td>
+            <thead>
+                <th colspan="2">배달거리</th>
+                <th colspan="2">배달료</th>
+                <th colspan="3">배달시간</th>
+            </thead>
+            <tbody>
+                <tr th:each="delivery : ${delivery_detail}">
+                <td colspan="2" th:text="${delivery.diDistance}"></td>
+                <td colspan="2" th:text="${delivery.diDeliveryPrice}"></td>
+                <td colspan="3" th:text="${delivery.diTime}"></td>
+            </tbody>
+        </tr>
+    </tbody>
+    </table>
+    <a th:href="@{/store/update(store_no=${session.loginUser.owiSiSeq})}">가게정보 수정하기</a>
+    
+</body>
+</html>

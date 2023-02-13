@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {text-align: center; color: blue;}
+        th {background-color: rgb(0, 0, 0); color: aliceblue; padding: 30px;}
+        td {text-align: center; border-bottom: 3px solid rgb(18, 163, 230); padding: 30px;}
+        table {border-collapse: separate; width: 1100; margin: 10 auto; text-align: center;}
+    </style>
+</head>
+<body>
+    <h1>카테고리</h1>
+    <table> 
+        <thead>
+            <th>번호</th>
+            <th>카테고리명</th>
+        </thead>
+        <tbody>
+            <tr th:each="cate : ${result.cateList}"> 
+                <td th:text="${cate.scSeq}"></td>
+                <td th:text="${cate.scName}"></td>
+            </tr>
+        </tbody>
+    </table>
+     <div class="pager_area">
+        <th:block th:each="i : ${#numbers.sequence(0,result.totalpage -1)}">
+            <th:block th:if="${result.totalpage > 0}">
+            <!-- @{URL(page=${i})} /admin/list/?page=0 -->
+            <!-- @{URL/{page}(page=${i})}  -->
+            <!-- @{/admin/list/{page}(page=${i})} /admin/list/0 /admin/list/1 /admin/list/2 -->
+            <th:block th:if="${keyword == null || keyword == ''}">
+                <a th:href="@{/cate/list(page=${i})}" th:text="${i+1}"></a>
+            </th:block>
+            <th:block th:if="${keyword != null && keyword != ''}">
+                <a th:href="@{/cate/list(page=${i})}" th:text="${i+1}"></a>
+            </th:block>
+            </th:block>
+        </th:block>
+    </div>
+    <a href="/cate/add">카테고리 추가</a>
+</body>
+</html>

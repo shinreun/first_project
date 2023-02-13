@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <style>
+        h1 {text-align: center;}
+        th {background-color: rgb(43, 28, 28); color: aliceblue; padding: 10px;}
+        td {text-align: center; border-bottom: 1px solid #ccc; padding: 10px;}
+        table {border-collapse: collapse; width: 1100px; margin: 10px auto;}
+        .search_area, .pager_area {text-align: center;}
+        .box {border-radius: 5px; display: inline-block; padding: 5px; font-size: 12px; color: aqua;}
+        .wait {background-color: rgb(255, 165, 80); display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .normal {background-color: rgb(70, 208, 70);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .banned {background-color: rgb(228, 86, 86); display: inline-block;padding:5px;font-size: 12px;color: #fff;}
+        .admin {background-color: rgb(2, 155, 243);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .master {background-color: rgb(69, 3, 252);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}   
+    </style>
+</head>
+<body>
+    <h1>관리자 정보</h1>
+    <table> 
+        <thead>
+            <th>번호</th>
+            <th>아이디</th>
+            <!-- <th>비밀번호</th> -->
+            <th>이름</th>
+            <th>관리자 상태</th>
+            <th>관리자 등급</th>
+            <th>상태 변경</th>
+            <th>삭제</th>
+            
+        </thead>
+        <tbody>
+            <tr th:each="admin : ${result.adminList}" id="leave"> 
+                <td th:text="${admin.aiSeq}"></td>
+                <td th:text="${admin.aiId}"></td>
+                <td th:text="${admin.aiName}"></td>
+                <td>
+                    <th:block th:if="${admin.aiStatus ==1}"><span class="box wait">정상사용</span></th:block>
+                    <th:block th:if="${admin.aiStatus ==2}"><span class="box normal">승인대기</span></th:block>
+                    <th:block th:if="${admin.aiStatus ==3}"><span class="box banned">이용정지</span></th:block>
+                </td>
+                <td>
+                    <th:block th:if="${admin.aiGrade ==1}"><span class="box admin">일반 관리자</span></th:block>
+                    <th:block th:if="${admin.aiGrade ==99}"><span class="box master">마스터</span></th:block>
+                </td>
+                <td>
+                    <a th:href="@{/admin/update/status?value=1(admin_no=${admin.aiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="font-weight: bolder; font-style:unset ;">정상 사용으로 변경</button></a>
+                    <a th:href="@{/admin/update/status?value=2(admin_no=${admin.aiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="font-weight: bold;">승인 대기로 변경</button></a> 
+                    <a th:href="@{/admin/update/status?value=3(admin_no=${admin.aiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="color: red; font-weight: bolder;">이용 정지로 변경</button></a>
+                </td>
+                <td>
+                    <a th:href="@{/admin/delete(admin_no=${admin.aiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button id="btn" style="color: red; font-size: large; font-weight: bold;">계정 삭제</button></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        <!-- <script>
+        document.getElementById("btn").addEventListener("click",function(e){
+            e.preventDefault();// 이게 설정되어 있으면 form이 작동안함
+            // 체크박스의 상태가 체크되어 있지 않다면
+            if(!document.getElementById("agree").checked) {
+                // 경고메시지 출력하고
+                alert("체크박스에 체크를 해주셔야 삭제 진행이 가능합니다.")
+                return; // 종료
+            }
+            if(confirm("정말 삭제하시겠습니까?")){
+                alert("고생하셧습니다.")
+                document.getElementById("leave").submit();
+            }
+        })
+    </script> -->
+    <div class="search_area">
+        <form action="/admin/list" method="get" id="search_form">
+            <input type="text" name="keyword" placeholder="아이디" th:value="${keyword}"><button>검색</button>
+        </form>
+    </div>
+    <a href="/">메인페이지로</a>
+    <div class="pager_area">
+        <th:block th:each="i : ${#numbers.sequence(0,result.totalpage -1)}">
+            <th:block th:if="${result.totalpage > 0}">
+            <!-- @{URL(page=${i})} /admin/list/?page=0 -->
+            <!-- @{URL/{page}(page=${i})}  -->
+            <!-- @{/admin/list/{page}(page=${i})} /admin/list/0 /admin/list/1 /admin/list/2 -->
+            <th:block th:if="${keyword == null || keyword == ''}">
+                <a th:href="@{/admin/list(page=${i})}" th:text="${i+1}"></a>
+            </th:block>
+            <th:block th:if="${keyword != null && keyword != ''}">
+                <a th:href="@{/admin/list(page=${i},keyword=${keyword})}" th:text="${i+1}"></a>
+            </th:block>
+            </th:block>
+        </th:block>
+    </div>
+    
+</body>
+</html>

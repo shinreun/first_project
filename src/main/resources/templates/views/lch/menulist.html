@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>메뉴 정보 리스트<h1>
+        <!-- <tr th:text="${result.list}"></tr> -->
+        <table>
+            <thead>
+                <th>메뉴번호</th>
+                <th>가게번호</th>
+                <th>메뉴명</th>
+                <th>가격</th>
+                <th>할인율</th>
+            </thead>
+            <tbody>
+                <tr th:each="menulist : ${result.list}">
+                    <td th:text="${menulist.mniSeq}"></td>
+                    <td th:text="${menulist.siSeq}"></td>
+                    <td>
+                        <a th:href="@{/menuoption/menulist(page=${0},mniSeq=${menulist.mniSeq})}" th:text="${menulist.mniName}"></a>
+                    </td>
+                    <td th:text="${menulist.mniPrice}"></td>
+                    <td th:text="${menulist.mniDiscount}"></td>
+                    
+                    <td>
+                        <a th:href="@{/menu/menudelete(menu_no=${menulist.mniSeq})}">삭제</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+        <div class="search_area">
+            <form action="/menu/menulist" method="get" id="search_form">
+                <input type="text" name="storeNum" placeholder="가게 검색" th:value="${storeNum}"><button>검색</button>
+            </form>
+        </div>
+        <div class="pager_area">
+            <th:block th:each="i : ${#numbers.sequence(0, result.totalPage -1)}">
+                <th:block th:if="${result.totalPage > 0}">
+                    <th:block th:if="${storeNum == null || storeNum == ''}">
+                        <a th:href="@{/menu/menulist(page=${i})}" th:text="${i+1}"></a>
+                    </th:block>
+                    <th:block th:if="${storeNum != null && storeNum != ''}">
+                        <a th:href="@{/menu/menulist(page=${i},storeNum=${storeNum})}" th:text="${i+1}"></a>
+                    </th:block>
+                </th:block>
+            </th:block>
+        </div>
+        <a href="/menu/add">메뉴 추가</a>
+        <a href="/main">돌아가기</a>
+</body>
+</html>

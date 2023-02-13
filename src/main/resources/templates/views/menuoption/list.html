@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1 {text-align: center; color: violet;}
+        th {background-color: rgb(43, 28, 28); color: aliceblue; padding: 10px;}
+        td {text-align: center; border-bottom: 1px ; padding: 10px;}
+        table {border-collapse: separate; width: 1100; margin-left:auto; margin-right: auto; text-align: center;}
+    </style>
+</head>
+<body>
+    <h1>메뉴</h1>
+    <table> 
+        <thead>
+            <th>메뉴 번호</th>
+            <th>옵션 카테고리 번호</th>
+            <th>옵션 카테고리 이름</th>
+            <th>옵션 번호</th>
+            <th>옵션 이름</th>
+        </thead>
+        <tbody>
+            <tr th:each="menuoption : ${result.list}"> 
+                <td th:text="${menuoption.mniSeq}"></td>
+                <td th:text="${menuoption.pcSeq}"></td>
+                <td th:text="${menuoption.pcName}"></td>
+                <td th:text="${menuoption.pmSeq}"></td>
+                <td th:text="${menuoption.pmName}"></td>
+            </tr>
+        </tbody>
+    </table>
+     <div class="pager_area" style="text-align: center;">
+        <th:block th:each="i : ${#numbers.sequence(0,result.totalPage -1)}">
+            <th:block th:if="${result.totalPage > 0}">
+                <a th:href="@{/menuoption/menulist(page=${i},mniSeq=${mniSeq})}" th:text="${i+1}"></a>
+            </th:block>
+        </th:block>
+    </div>
+    <div style="font-size: large; text-align: center;" >
+        <a th:href="@{/menu/menulist(page=${i})}">목록으로</a>
+    </div>
+    <div style="font-size: large; text-align: center;">
+        <a th:href="@{/menucate/optionadd}">옵션 추가</a>
+    </div>
+</body>
+</html>

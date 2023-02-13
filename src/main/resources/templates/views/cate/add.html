@@ -1,0 +1,45 @@
+<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>카테고리 추가</h1>
+    <div>
+        <form action="/cate/add" method="post" enctype="multipart/form-data">
+            <table>
+            <tbody>
+                <tr>
+                    <td>카테고리 이름</td>
+                    <td>
+                    <input type="text" id="scName" name="scName">
+                    </td>
+                </tr>
+                <th:block th:if="${message != null}">
+                    <tr>
+                        <td colspan="3" th:text="${message}" style="color: red;"></td>
+                    </tr>
+                </th:block>
+                    <tr>
+                        <td>파일 등록</td>
+                        <td colspan="2">
+                            <input type="file" id="file" name="file">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <!-- <input type="submit" value="등록"> -->
+                            <button id="save">등록</button>
+                            <a href="/">메인으로</a>
+                        </td>
+                    </tr>
+            </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

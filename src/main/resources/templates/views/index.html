@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>관리자 로그인</h1>
+    <div>
+        <form action="/admin/login" method="post">
+            <table border="1">
+            <tbody>
+            <tr>
+            <td>Adimin ID </td>
+            <td><input type="text" name="ai_id" id="ai_id" ></td>
+            </tr>
+            <tr>
+            <td>Password</td>
+            <td><input type="password" name="ai_pwd" id="ai_pwd" ></td>
+            </tr>  
+            <tr>
+            <td colspan="3">
+                <button id="admin_login">로그인</button>
+            <a href="/admin/add">관리자 추가</a>
+        </td>
+            <p th:text="${message}"></p>
+            </tr>
+                </tbody>
+            </table>
+        </form>
+ 
+        <h1>사장님 로그인</h1>
+        <form action="/owner/login" method="post">
+             <table border="1">
+                <tbody>
+                    <tr>
+            <td>Owner ID</td>
+            <td><input type="text" name="owi_id" id="owi_id" ></td>
+            </tr>
+            <tr>
+            <td>Password</td>
+            <td><input type="password" name="owi_pwd" id="owi_pwd" ></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+            <button id="owner_login">로그인</button>
+            <a href="/owner/add">사장님 추가</a>
+            </td>
+            </tr>
+            <p th:text="${message}"></p>
+            </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.min.js" integrity="sha512-RUkwGPgBmjCwqXpCRzpPPmGl0LSFp9v5wXtmG41+OS8vnmXybQX5qiG5adrIhtO03irWCXl+z0Jrst6qeaLDtQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            document.getElementById("owner_login_box").addEventListener("submit", function(event){
+                event.preventDefault(); //form의 submit 기능 제거 
+            })
+            document.getElementById("owner_login").addEventListener("click", function(){
+                axios.post("http://localhost:9244/owner/login",{
+                    owi_id:document.getElementById("owi_id").value,
+                    owi_pwd:document.getElementById("owi_pwd").value
+                })
+                .then(function(result){
+                    if(result.data.status){
+                        // alert("로그인 성공")
+                        console.log(result.data)
+                        if(result.data.login.owiStatus == 1){ // 정상사용
+                            sessionStorage.setItem("login",JSON.stringify(result.data.login))
+                            location.href= "http://localhost:9244/omain"    
+                        }
+                        if(result.data.login.owiStatus == 2){ // 정지
+                            alert("이용정지된 사용자입니다.")
+                        }
+                        if(result.data.login.owiStatus == 3){  // 영구정지
+                            alert("영구정지된 사용자입니다.\n 관리자에게 문의하세요")
+                        }
+                    }
+                    else{
+                        alert(result.data.message)
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <h1>관리자 로그인</h1>
+    <div>
+        <form action="/admin/login" method="post">
+            <table border="1">
+            <tbody>
+            <tr>
+            <td>Adimin ID </td>
+            <td><input type="text" name="ai_id" id="ai_id" ></td>
+            </tr>
+            <tr>
+            <td>Password</td>
+            <td><input type="password" name="ai_pwd" id="ai_pwd" ></td>
+            </tr>  
+            <tr>
+            <td colspan="3">
+                <button id="admin_login">로그인</button>
+            <a href="/admin/add">관리자 추가</a>
+        </td>
+            <p th:text="${message}"></p>
+            </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+ 
+        <h1>사장님 로그인</h1>
+        <div>
+        <form id="owner_login_box">
+             <table border="1">
+            <tbody>
+            <tr>
+            <td>Owner ID</td>
+            <td><input type="text" name="owi_id" id="owi_id"></td>
+            </tr>
+            <tr>
+            <td>Password</td>
+            <td><input type="password" name="owi_pwd" id="owi_pwd"></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+            <button id="owner_login">로그인</button>
+            <a href="/owner/add">사장님 추가</a>
+            </td>
+            </tr>
+            <p th:text="${message}"></p>
+            </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html> -->

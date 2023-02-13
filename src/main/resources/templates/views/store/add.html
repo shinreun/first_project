@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>가게 등록</h1>
+    <div>
+        <form action="/store/add" method="post" id="add_form" enctype="multipart/form-data">
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>가게이름</td>
+                        <td>
+                            <th:block th:if="${inputdata != null}">
+                            <input type="text" name="siName" id="siName" th:value="${inputdata.siName}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="siName" id="siName"></td>
+                            </th:block>
+                        </td>   
+                    </tr>
+                    <tr>
+                        <td>최소주문금액</td>
+                        <td colspan="2"><input type="number" name="siMinOrderPrice" id="siMinOrderPrice"></td>
+                    </tr>
+                    <tr>
+                        <td>할인금액</td>
+                        <td colspan="2"><input type="number" name="siDiscountPrice" id="siDiscountPrice"></td>
+                    </tr>
+                    <tr>
+                        <td>할인조건</td>
+                        <td colspan="2"><input type="text" name="siDiscountCondition" id="siDiscountCondition"></td>
+                    </tr>
+                    <tr>
+                        <td>세스코인증</td>
+                        <td colspan="2"> 
+                            <select name="siCleanInfo" id="siCleanInfo">
+                                <th:block th:if="${inputdata != null}">
+                                    <option value="0" th:selected="${inputdata.siCleanInfo ==0}">세스코매장</option>
+                                    <option value="1" th:selected="${inputdata.siCleanInfo ==1}">일반매장</option>
+                                </th:block>
+                                <th:block th:if="${inputdata == null}">
+                                    <option value="0">세스코매장</option>
+                                    <option value="1">일반매장</option>
+                                </th:block>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>카테고리</td>
+                        <td colspan="2">       
+                        <select name="scName" id="scName">
+                            <option th:each="category : ${result.cateList}" th:value="${category.scName}" th:text="${category.scName}"></option>
+                        </select>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>배달거리</td>
+                        <td colspan="2"><input type="number" name="diDistance" id="diDistance"></td>
+                    </tr>
+                     <tr>
+                        <td>배달금액</td>
+                        <td colspan="2"><input type="number" name="diDeliveryPrice" id="diDeliveryPrice"></td>
+                    </tr>
+                     <tr>
+                        <td>배달시간</td>
+                        <td colspan="2"><input type="text" name="diTime" id="diTime"></td>
+                    </tr>
+                    <tr>
+                        <td>가게 이미지</td>
+                        <td colspan="2">
+                            <input type="file" id="file" name="file">
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td colspan="3">
+                            <input type="submit" value="등록">
+                            <!-- <button id="save">등록</button> -->
+                            <a href="/">메인으로</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

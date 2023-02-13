@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>가게 관리</h1>
+    <table border="1"> 
+        <thead>
+            <th>번호</th>
+            <th>가게이름</th>
+            <th>가게 이미지</th>
+            <th>최소주문금액</th>
+            <th>할인가격</th>
+            <th>할인조건</th>
+            <th>세스코인증</th>
+            <th>삭제</th>
+        </thead>
+        <tbody>
+            <!-- <tr th:each="delivery : ${delivery_detail}"> -->
+            <tr th:each="store : ${result.storeList}">
+            <td th:text="${store.siSeq}"></td>
+            <td th:text="${store.siName}"></td>
+            <td th:text="${store.siUri}"></td>
+            <td th:text="${store.siMinOrderPrice}"></td>
+            <td th:text="${store.siDiscountPrice}"></td>
+            <td th:text="${store.siDiscountCondition}"></td>
+            <td th:text="${store.siCleanInfo}"></td>
+            <td>
+                    <a th:href="@{/store/delete(store_no=${store.siSeq})}">가게삭제</a>
+                        <!-- <button style="color: red; font-size: large; font-weight: bold;">가게 삭제</button></a> -->
+            </td>
+            <!-- <thead>
+                <th colspan="2">배달거리</th>
+                <th colspan="2">배달료</th>
+                <th colspan="3">배달시간</th>
+            </thead>
+            <tbody>
+                <tr th:each="delivery : ${delivery_detail}">
+                <td colspan="2" th:text="${delivery.diDistance}"></td>
+                <td colspan="2" th:text="${delivery.diDeliveryPrice}"></td>
+                <td colspan="3" th:text="${delivery.diTime}"></td>
+            </tbody> -->
+        </tr>
+
+    </tbody>
+    </table>
+    <a href="/">메인페이지로</a>
+    <div class="pager_area">
+        <th:block th:each="i : ${#numbers.sequence(0,result.totalpage -1)}">
+            <th:block th:if="${result.totalpage > 0}">
+            <!-- @{URL(page=${i})} /admin/list/?page=0 -->
+            <!-- @{URL/{page}(page=${i})}  -->
+            <!-- @{/admin/list/{page}(page=${i})} /admin/list/0 /admin/list/1 /admin/list/2 -->
+            <th:block th:if="${keyword == null || keyword == ''}">
+                <a th:href="@{/store/all/list(page=${i})}" th:text="${i+1}"></a>
+            </th:block>
+            <th:block th:if="${keyword != null && keyword != ''}">
+                <a th:href="@{/store/all/list(page=${i})}" th:text="${i+1}"></a>
+            </th:block>
+            </th:block>
+        </th:block>
+    </div>
+</body>
+</html>

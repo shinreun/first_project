@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/menucate/cateadd" method="post">
+    <h1>토핑 정보 추가</h1>
+    </select><br> 
+    <span>메뉴 카테고리 번호</span>
+    <input type="number" name="mcjSeq" placeholder="메뉴 카테고리 번호"><br>
+    <span>토핑 카테고리 번호</span>
+    <input type="number" name="pcSeq" placeholder="토핑 카테고리 번호"><br>
+    <span>토핑 이름</span>
+    <input type="text" name="topping_name" placeholder="토핑 이름"><br>
+    <span>토핑 가격</span>
+    <input type="text" name="topping_price" placeholder="토핑 가격"><br>
+    <th:block th:if="${result != null}">
+        <p th:text="${result.message}" style="color: violet;"></p>
+    </th:block>
+    <button >등록</button>
+    <a href="/menucate/optionadd">옵션추가 이동</a>
+</form>
+</body>
+</html>

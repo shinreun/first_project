@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>사장님 등록</h1>
+    <div>
+        <form action="/owner/add" method="post" id="add_form">
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>아이디</td>
+                        <td>
+                            <th:block th:if="${inputdata != null}">
+                            <input type="text" name="owiId" id="owiId" th:value="${inputdata.owiId}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="owiId" id="owiId"></td>
+                            </th:block>
+                        </td>   
+                        <td><button type="button" id="dup_chk">중복체크</button></td>
+                    </tr>
+                    <th:block th:if="${message != null}">
+                        <tr>
+                            <td colspan="3" th:text="${message}" style="color: red;"></td>
+                        </tr>
+                    </th:block>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td colspan="2"><input type="password" name="owiPwd" id="owiPwd"></td>
+                    </tr>
+                    <tr>
+                        <td>전화번호</td>
+                        <td colspan="2">
+                            <th:block th:if="${inputdata !=null}">
+                            <input type="text" name="owiPhone" id="owiPhone" th:value="${inputdata.owiPhone}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="owiPhone" id="owiPhone">
+                            </th:block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>이메일</td>
+                        <td colspan="2">
+                            <th:block th:if="${inputdata !=null}">
+                            <input type="text" name="owiEmail" id="owiEmail" th:value="${inputdata.owiEmail}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="owiEmail" id="owiEmail">
+                            </th:block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>닉네임</td>
+                        <td colspan="2">
+                            <th:block th:if="${inputdata !=null}">
+                            <input type="text" name="owiNickName" id="owiNickName" th:value="${inputdata.owiNickName}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="owiNickName" id="owiNickName">
+                            </th:block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <input type="submit" value="등록">
+                            <!-- <button id="save">등록</button> -->
+                            <a href="/"><button>메인으로</button></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

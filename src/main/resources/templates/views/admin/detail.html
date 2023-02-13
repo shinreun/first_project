@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>관리자 상세정보</h1>
+    <div>
+        <table border="1">
+            <form action="/admin/update" method="post">
+                <input type="text" name="seq" th:value="${admin_detail.aiSeq}" hidden>
+        <tr>
+            <td>아이디</td>
+            <td th:text="${admin_detail.aiId}">아이디</td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="pwd"></td>
+        </tr>
+        <tr>
+            <td>관리자 이름</td>
+            <td><input type="text" name="name" th:value="${admin_detail.aiName}"></td>
+        </tr>
+        <!-- <tr>
+            <td>관리자 상태</td>
+            <td>
+                <select name="status">
+                    <th:block th:if="${admin_detail.aiStatus ==1}">
+                    <option value="1" selected>정상사용</option>
+                    <option value="2">승인대기</option>
+                    <option value="3">이용정지</option> 
+                    </th:block>
+                    <th:block th:if="${admin_detail.aiStatus ==2}">
+                    <option value="1">정상사용</option>
+                    <option value="2" selected>승인대기</option>
+                    <option value="3">이용정지</option>
+                    </th:block>
+                    <th:block th:if="${admin_detail.aiStatus ==3}">
+                    <option value="1">정상사용</option>
+                    <option value="2">승인대기</option>
+                    <option value="3" selected>이용정지</option>
+                    </th:block>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>관리자 등급</td>
+            <td>
+                <select name="grade">
+                    <th:block th:if="${admin_detail.aiGrade == 1}">
+                        <option value="1"selected>일반관리자</option>
+                        <option value="99">마스터관리자</option>
+                    </th:block>
+                     <th:block th:if="${admin_detail.aiGrade == 99}">
+                        <option value="1">일반관리자</option>
+                        <option value="99" selected>마스터관리자</option>
+                    </th:block>
+                </select>
+            </td>
+        </tr> -->
+        <tr>
+            <td colspan="2">
+                <button>변경내용 저장</button>
+                <a href="/">메인으로</a>
+            </td>
+        </tr>
+        </table>
+        </form>
+    </div>
+    <th:block th:if="${session.update_result != null}">
+        <p th:text="${session.update_result.message}"></p>
+    </th:block>
+</body>
+</html>

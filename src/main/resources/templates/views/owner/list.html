@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <style>
+        h1 {text-align: center;}
+        th {background-color: rgb(43, 28, 28); color: aliceblue; padding: 10px;}
+        td {text-align: center; border-bottom: 1px solid #ccc; padding: 10px;}
+        table {border-collapse: collapse; width: 1500; margin: 10px auto;}
+        .search_area, .pager_area {text-align: center;}
+        .box {border-radius: 5px; display: inline-block; padding: 5px; font-size: 12px; color: aqua;}
+        .wait {background-color: rgb(255, 165, 80); display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .normal {background-color: rgb(70, 208, 70);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .banned {background-color: rgb(228, 86, 86); display: inline-block;padding:5px;font-size: 12px;color: #fff;}
+        /* .admin {background-color: rgb(2, 155, 243);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .master {background-color: rgb(69, 3, 252);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}    */
+    </style>
+</head>
+<body>
+    <h1>사장님 정보</h1>
+    <table> 
+        <thead>
+            <th>번호</th>
+            <th>아이디</th>
+            <th>닉네임</th>
+            <th>전화번호</th>
+            <th>이메일</th>
+            <th>사장님 상태</th>
+            <th>상태 변경</th>
+            <th>삭제</th>
+            <th>가게번호</th>
+            
+        </thead>
+        <tbody>
+            <tr th:each="owner : ${result.ownerList}" id="leave"> 
+                <td th:text="${owner.owiSeq}"></td>
+                <td th:text="${owner.owiId}"></td>
+                <td th:text="${owner.owiNickName}"></td>
+                <td th:text="${owner.owiPhone}"></td>
+                <td th:text="${owner.owiEmail}"></td>
+                <td>
+                    <th:block th:if="${owner.owiStatus ==1}"><span class="box wait">정상사용</span></th:block>
+                    <th:block th:if="${owner.owiStatus ==2}"><span class="box normal">승인대기</span></th:block>
+                    <th:block th:if="${owner.owiStatus ==3}"><span class="box banned">이용정지</span></th:block>
+                </td>
+                <td>
+                    <a th:href="@{/owner/update/status?value=1(owner_no=${owner.owiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="font-weight: bolder; font-style:unset ;">정상 사용으로 변경</button></a>
+                    <a th:href="@{/owner/update/status?value=2(owner_no=${owner.owiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="font-weight: bold;">승인 대기로 변경</button></a> 
+                    <a th:href="@{/owner/update/status?value=3(owner_no=${owner.owiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="color: red; font-weight: bolder;">이용 정지로 변경</button></a>
+                </td>
+                <td>
+                    <a th:href="@{/owner/delete(owner_no=${owner.owiSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button id="btn" style="color: red; font-size: large; font-weight: bold;">계정 삭제</button></a>
+                </td>
+                
+                <td>
+                    <td th:text="${owner.owiSiSeq}"></td>
+                    <!-- <a th:href="@{/store/list/admin(store_no=${owner.owiSiSeq})}">가게이동</a> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="search_area">
+        <form action="/owner/list" method="get" id="search_form">
+            <input type="text" name="keyword" placeholder="아이디" th:value="${keyword}"><button>검색</button>
+        </form>
+    </div>
+    <a href="/">메인페이지로</a>
+    <div class="pager_area">
+        <th:block th:each="i : ${#numbers.sequence(0,result.totalpage -1)}">
+            <th:block th:if="${result.totalpage > 0}">
+            <!-- @{URL(page=${i})} /admin/list/?page=0 -->
+            <!-- @{URL/{page}(page=${i})}  -->
+            <!-- @{/admin/list/{page}(page=${i})} /admin/list/0 /admin/list/1 /admin/list/2 -->
+            <th:block th:if="${keyword == null || keyword == ''}">
+                <a th:href="@{/owner/list(page=${i})}" th:text="${i+1}"></a>
+            </th:block>
+            <th:block th:if="${keyword != null && keyword != ''}">
+                <a th:href="@{/owner/list(page=${i},keyword=${keyword})}" th:text="${i+1}"></a>
+            </th:block>
+            </th:block>
+        </th:block>
+    </div>
+    
+</body>
+</html>

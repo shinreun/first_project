@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    td { font-size : 20px;}
+  </style>
+</head>
+<body>
+  <form action="/order/option/add" method="post"  id="option_add_form">
+  <h1 style="text-align: center;">옵션 추가</h1>
+    <table align="center">
+      <tr>
+        <td>주문 번호</td>
+        <td>
+          <input type="number" name="pmcOiSeq" placeholder="OiSeq">
+        </td>
+      </tr>
+      <tr>
+        <td>옵션 번호</td>
+        <td>
+          <input type="number" name="pmcPmSeq" placeholder="PmSeq">
+        </td>
+      </tr>
+      <tr>
+        <td>옵션 수량</td>
+        <td>
+          <input type="number" name="pmcAmount" placeholder="1">
+        </td>
+      </tr>
+    </table>
+    <div style="text-align: center; font-size: larger;">
+      <button>등록</button>
+       <p th:text="${message}" style="color: red; font-size: 15px;"></p>
+    </div>
+    </form>
+  <div style="text-align: center;">
+    <a href="/order/menu/add"><font size="4">메뉴 추가로</font></a>
+  </div>
+  <div style="text-align: center;">
+    <a href="/order/list"><font size="4">목록으로</font></a>
+  </div>
+  </html>
+</body>
+  
+  

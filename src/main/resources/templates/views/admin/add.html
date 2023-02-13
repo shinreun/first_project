@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>관리자 등록</h1>
+    <div>
+        <form action="/admin/add" method="post" id="add_form">
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <td>아이디</td>
+                        <td>
+                            <th:block th:if="${inputdata != null}">
+                            <input type="text" name="id" id="id" th:value="${inputdata.id}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="id" id="id"></td>
+                            </th:block>
+                        </td>   
+                        <td><button type="button" id="dup_chk">중복체크</button></td>
+                    </tr>
+                    <th:block th:if="${message != null}">
+                        <tr>
+                            <td colspan="3" th:text="${message}" style="color: red;"></td>
+                        </tr>
+                    </th:block>
+                    <tr>
+                        <td>비밀번호</td>
+                        <td colspan="2"><input type="password" name="pwd" id="pwd"></td>
+                    </tr>
+                    <tr>
+                        <td>이름</td>
+                        <td colspan="2">
+                            <th:block th:if="${inputdata !=null}">
+                            <input type="text" name="name" id="name" th:value="${inputdata.name}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="name" id="name">
+                            </th:block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>닉네임</td>
+                        <td colspan="2">
+                            <th:block th:if="${inputdata !=null}">
+                            <input type="text" name="nickname" id="nickname" th:value="${inputdata.nickname}">
+                            </th:block>
+                            <th:block th:if="${inputdata == null}">
+                            <input type="text" name="nickname" id="nickname">
+                            </th:block>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>관리자 유형</td>
+                        <!-- 셀렉박스 -->
+                        <td colspan="2"> 
+                            <select name="type" id="type">
+                                <th:block th:if="${inputdata != null}">
+                                    <option value="1" th:selected="${inputdata.type ==1}">일반관리자</option>
+                                    <option value="99" th:selected="${inputdata.type ==99}">마스터관리자</option>
+                                </th:block>
+                                <th:block th:if="${inputdata == null}">
+                                    <option value="1">일반관리자</option>
+                                    <option value="99">마스터관리자</option>
+                                </th:block>
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- 파일 업로드 -->
+                    <tr>
+                        <td colspan="3">
+                            <input type="submit" value="등록">
+                            <!-- <button id="save">등록</button> -->
+                            <a href="/"><button>메인으로</button></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

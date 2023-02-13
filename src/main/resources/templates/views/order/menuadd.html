@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    td { font-size : 20px;}
+  </style>
+</head>
+<body>
+  <form action="/order/menu/add" method="post"  id="order_add_form">
+  <h1 style="text-align: center;">주문 추가</h1>
+    <table align="center">
+      <tr>
+        <td>주문 메뉴</td>
+        <td>
+        <input type="number" name="oiMniSeq" placeholder="MniSeq">
+        </td>
+      </tr>
+      <tr>
+        <td>회원 번호</td>
+        <td>
+          <input type="number" name="oiMiSeq" placeholder="MiSeq">
+        </td>
+      </tr>
+      <tr>
+        <td>수량</td>
+        <td>
+          <input type="number" name="oiMenuAmount" placeholder="MenuAmount">
+        </td>
+      </tr>
+      <tr>
+        <td>주문 상태</td>
+        <td>
+          <select name="oiStatus">
+            <th:block th:if="${order == null}">
+                <option value="0">장바구니</option>
+                <option value="1">주문완료</option>
+                <option value="2">배달완료</option>
+            </th:block>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>주문 번호</td>
+        <td>
+          <input type="text" name="oiOrderNum" placeholder="OrderNum">
+        </td>
+      </tr>
+      <tr>
+        <td>주문 일자</td>
+        <td>
+          <input type="text" name="oiOrderDt" placeholder="YYYY-MM-DD">
+        </td>
+      </tr>
+      <tr>
+        <td>배달 일자</td>
+        <td>
+          <input type="text" name="oiFinishDt" placeholder="YYYY-MM-DD">
+        </td>
+      </tr>
+    </table>
+    <div style="text-align: center; font-size: larger;">
+      <button>등록</button>
+      <p th:text="${message}" style="color: red; font-size: 15px;"></p>
+    </div>
+    </form>
+  <div style="text-align: center;">
+    <a href="/order/list"><font size="4">목록으로</font></a>
+  </div>
+  <div style="text-align: center;">
+    <a href="/order/option/add"><font size="4">옵션 추가</font></a>
+  </div>
+  </html>
+</body>
+  
+  

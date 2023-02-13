@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script th:inline="javascript">
+        const user = [[${session.loginUser}]] // 세션에 있는 데이터를 가져와서 user 변수에 저장
+        if(user == null){ // 이것이 null 이라면, 로그인 안한거
+            alert("관리자 전용 입니다."); // 경고 메시지
+            location.href="/"; // 브라우저의 주소를 /  로 강제 세팅
+        }
+    </script>
+        <style>
+        h1 {text-align: center;}
+        th {background-color: rgb(43, 28, 28); color: aliceblue; padding: 10px;}
+        td {text-align: center; border-bottom: 1px solid #ccc; padding: 10px;}
+        table {border-collapse: collapse; width: 1800px; margin: 10px auto;}
+        .search_area, .pager_area {text-align: center;}
+        .box {border-radius: 5px; display: inline-block; padding: 5px; font-size: 12px; color: aqua;}
+        .normal {background-color: rgb(8, 197, 222); display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .banned {background-color: rgb(247, 5, 5);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .leave {background-color: rgb(16, 16, 16); display: inline-block;padding:5px;font-size: 12px;color: #fff;}
+        .admin {background-color: rgb(2, 155, 243);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}
+        .master {background-color: rgb(69, 3, 252);display: inline-block;padding: 5px;font-size: 12px;color: #fff;}   
+    </style>
+</head>
+<body>
+    <h1>리뷰 관리</h1>
+    <table> 
+        <thead>
+            <th>리뷰번호</th>
+            <th>가게이름</th>
+            <th>음식이름</th>
+            <th>리뷰내용</th>
+            <th>평점</th>
+            <th>작성자</th>
+            <th>작성날짜</th>
+            <th>삭제</th>
+        </thead>
+        <tbody>
+            <tr th:each="review : ${result.list} "> 
+                <td th:text="${review.reSeq}"></td>
+                <td th:text="${review.siName}"></td>
+                <td th:text="${review.mniName}"></td>
+                <td th:text="${review.reContent}"></td>
+                <td th:text="${review.reScore}"></td>
+                <td th:text="${review.miNickname}"></td>
+                <td th:text="${review.reRegDt}"></td>
+                
+                <!-- <td>
+                    <th:block th:if="${review.miStatus ==0}"><span class="box normal">정상사용</span></th:block>
+                    <th:block th:if="${review.miStatus ==1}"><span class="box banned">활동정지</span></th:block>
+                    <th:block th:if="${review.miStatus ==2}"><span class="box leave">탈퇴처리</span></th:block>
+                </td>
+                <td>
+                    <a th:href="@{/admember/update/status?value=0(member_no=${member.miSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="font-weight: bolder; font-style:unset ;">정상사용으로 변경</button></a>
+                    <a th:href="@{/admember/update/status?value=1(member_no=${member.miSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="font-weight: bold;">활동정지로 변경</button></a> 
+                    <a th:href="@{/admember/update/status?value=2(member_no=${member.miSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button style="font-weight: bolder;">탈퇴처리로 변경</button></a>
+                </td>  -->
+                <td>
+                    <a th:href="@{/adreview/delete(review_no=${review.reSeq}, page=${result.currentPage},keyword=${keyword})}">
+                        <button id="btn" style="color: red; font-size: large; font-weight: bold;">리뷰 삭제</button></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        <!-- <script>
+        document.getElementById("btn").addEventListener("click",function(e){
+            e.preventDefault();// 이게 설정되어 있으면 form이 작동안함
+            // 체크박스의 상태가 체크되어 있지 않다면
+            if(!document.getElementById("agree").checked) {
+                // 경고메시지 출력하고
+                alert("체크박스에 체크를 해주셔야 삭제 진행이 가능합니다.")
+                return; // 종료
+            }
+            if(confirm("정말 삭제하시겠습니까?")){
+                alert("회원정보가 삭제되었습니다")
+                document.getElementById("leave").submit();
+            }
+        })
+    </script> -->
+    <div class="search_area">
+        <form action="/adreview/list" method="get" id="search_form">
+            <input type="text" name="keyword" placeholder="작성자" th:value="${keyword}"><button>검색</button>
+        </form>
+    </div>
+    <a href="/main">메인화면</a>
+    <div class="pager_area">
+        <th:block th:each="i : ${#numbers.sequence(0,result.totalpage -1)}">
+            <th:block th:if="${result.totalpage > 0}">
+            <!-- @{URL(page=${i})} /admin/list/?page=0 -->
+            <!-- @{URL/{page}(page=${i})}  -->
+            <!-- @{/admin/list/{page}(page=${i})} /admin/list/0 /admin/list/1 /admin/list/2 -->
+            <th:block th:if="${keyword == null || keyword == ''}">
+                <a th:href="@{/adreview/list(page=${i})}" th:text="${i+1}"></a>
+            </th:block>
+            <th:block th:if="${keyword != null && keyword != ''}">
+                <a th:href="@{/adreview/list(page=${i},keyword=${keyword})}" th:text="${i+1}"></a>
+            </th:block>
+            </th:block>
+        </th:block>
+    </div>
+    
+</body>
+</html>

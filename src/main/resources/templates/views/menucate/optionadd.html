@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>토핑 정보 추가</h1>
+    <form action="/menucate/optionadd" method="post">
+        <span>토핑 카테 이름</span>
+        <input type="text" name="name"  placeholder="토핑 카테 이름"><br>
+        <span>필수여부</span>
+        <select name="pc_essential_choice">
+            <option value="0" >필수</option>
+            <option value="1" selected>선택</option>
+        </select><br> 
+        <span>다중선택여부</span>
+        <select name="pc_multi_choice">
+            <option value="0" selected>불가</option>
+            <option value="1" >가능</option>
+        <th:block th:if="${result != null}">
+            <p th:text="${result.message}" style="color: violet;"></p>
+        </th:block>
+    </select><br>
+        <button>등록</button>
+        <a href="/menucate/cateadd">토핑 추가 이동</a>
+        <a href="/omain">메인화면으로</a>
+        <a href="/menuoption/menulist">목록으로</a>
+    </form>
+</body>
+</html>                                                                                                                                                          

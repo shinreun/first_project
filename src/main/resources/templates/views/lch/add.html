@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {text-align: center;}
+        #input_form_table {
+            margin: 0 auto;border-collapse: collapse; 
+            border: 0;
+        } 
+        #input_form_table input {width: 70%;}
+        #input_form_table td {padding: 10px;}
+    </style>
+</head>
+<body>
+    <h1>메뉴 추가</h1>
+    <!-- html로 이미지파일 넣을때 enctype="multipart/form-data" 설정하기 -->
+    <form action="/menu/add" method="post" enctype="multipart/form-data">
+        <table border="1" id="input_form_table">
+            <tbody>
+                <tr>
+                    <td>가게 번호</td>
+                    <th:block th:if="${data != null}">
+                        <td><input type="number" name="mc_si_seq" th:value="${data.mc_si_seq}"></td>
+                    </th:block>
+                    <th:block th:if="${data == null}">
+                        <td><input type="number" name="mc_si_seq"></td>
+                    </th:block>
+                </tr>
+                <tr>
+                    <td>메뉴 카테고리</td>
+                    <td><input type="text" name="mc_name"></td>
+                </tr>
+                <tr>
+                    <td>메뉴 카테고리 설명</td>
+                    <td colspan="5"><input type="text" name="mc_explanation"></td>
+                </tr>
+                <tr>
+                    <td>메뉴 이름</td>
+                    <td><input type="text" name="mni_name"></td>
+                </tr>
+                <tr>
+                    <td>메뉴 가격</td>
+                    <td><input type="number" name="mni_price">원</td>
+                </tr>
+                <tr>
+                    <td>할인율</td>
+                    <td><input type="number" name="mni_discount" min="0" max="100">%</td>
+                </tr>
+                <tr>
+                    <td>파일 업로드</td>
+                    <td><input type="file" name="file"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <button>저장</button>
+                        <a href="/main">돌아가기</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <a href="/menu/menulist">메뉴 목록으로</a>
+</body>
+</html>

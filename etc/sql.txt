@@ -1,0 +1,207 @@
+create view view_review
+as (
+select a.ri_seq
+from review_info as a
+join review_img as b
+on a.re_seq = b.ri_re_seq
+);
+
+create table member_info
+(	
+mi_seq	int	not null	auto_increment	primary key,
+mi_id	varchar(30)	not null,		
+mi_pwd	varchar(60)	not null,		
+mi_email	varchar(100)	not null,		
+mi_phone	varchar(30)	not null,		
+mi_nickname	varchar(30)	not null,		
+mi_address	text	not null,		
+mi_status	int	not null	default 0
+);
+
+create table store_category
+(
+sc_seq	int	not null	auto_increment	primary key,
+sc_name	varchar(100)	not null		
+);	
+
+create table store_category_save
+(
+scs_seq	int	not null	auto_increment	primary key,
+scs_sc_seq	int	null,		
+scs_si_seq	int	null		
+);		
+
+create table store_info	
+(
+si_seq	int	not null	auto_increment	primary key,
+si_name	varchar(100)	not null,		
+si_img	varchar(255)	null,		
+si_min_order_price	int	not null,		
+si_discount_price	int	null,		
+si_discount_condition	varchar(50)	null,		
+si_di_seq	int	null,		
+si_clean_info	int	not null	default 1	
+);
+
+create table store_detail_info
+(
+sdi_seq	int	not null	auto_increment	primary key,
+sdi_si_seq	int	null,		
+sdi_open_close	varchar(50)	not null,		
+sdi_phone	varchar(20)	not null,		
+sdi_adress	varchar(100)	not null,		
+sdi_bi_seq	int	null,		
+sdi_psi_seq	int	null,		
+sdi_packing	int	not null	default 0,	
+sdi_origin	text	not null,		
+sdi_owner_notice	text	null		
+);
+
+create table delivery_info		
+(
+di_seq	int	not null	auto_increment	primary key,
+di_distance	int	not null,		
+di_delivery_price	int	not null,		
+di_time	int	not null		
+);
+
+create table payment_store_info		
+(
+psi_seq	int	not null	auto_increment	primary key,
+psi_pay_kind	int	not null		
+);
+
+create table business_info		
+(
+bi_seq	int	not null	auto_increment	primary key,
+bi_name	varchar(50)	not null,		
+bi_owner	varchar(50)	not null,		
+bi_business_number	varchar(50)	not null		
+);
+
+create table menu_category		
+(
+mc_seq	int	not null	auto_increment	primary key,
+mc_name	varchar(255)	not null,		
+mc_explanation	varchar(255)	not null,		
+mc_si_seq	int	null		
+);
+
+create table menu_info		
+(
+mni_seq	int	not null	auto_increment	primary key,
+mni_img	varchar(30)	not null,		
+mni_name	varchar(60)	not null,		
+mni_discount	double	not null,		
+mni_price	int	not null,		
+mni_mc_seq	int	null
+);
+
+create table plus_category		
+(
+pc_seq	int	not null	auto_increment	primary key,
+pc_name	varchar(30)	not null,		
+pc_multi_choice	int	not null	default 0,	
+pc_essential_choice	int	not null	default 1,	
+pc_mni_seq	int	null		
+);
+
+create table plus_menu		
+(
+pm_seq	int	not null	auto_increment	primary key,
+pm_pc_seq	int	null,		
+pm_name	varchar(30)	not null,		
+pm_price	int	not null		
+);
+
+create table plus_menu_choice		
+(
+pmc_seq	int	not null	auto_increment	primary key,
+pmc_pm_seq	int	null,		
+pmc_amount	int	not null	default 1	
+);
+
+create table owner_notice_img		
+(
+oni_seq	int	not null	auto_increment	primary key,
+oni_sdi_seq	int	null,		
+oni_img_path	varchar(255)	not null,		
+oni_img_seq	int	not null		
+);
+
+create table store_likes		
+(
+sl_seq	int	not null	auto_increment	primary key,
+sl_mi_seq	int	null,		
+sl_si_seq	int	null,		
+sl_status	int	not null		
+);
+
+create table order_info		
+(
+oi_seq	int	not null	auto_increment	primary key,
+oi_mni_seq	int	null,
+oi_pmc_seq	int	null,
+oi_mi_seq	int	null,
+oi_menu_amount	int	not null	default 1	
+);
+
+create table review_info		
+(
+re_seq	int	not null	auto_increment	primary key,
+re_reg_dt	datetime	not null	default now(),	
+re_score	int	not null	default 5,	
+re_content	varchar(255)	not null,		
+re_oi_seq	int	null		
+);
+
+create table review_img		
+(
+ri_seq	int	not null	auto_increment	primary key,
+ri_re_seq	int	null,		
+ri_name	varchar(255)	not null,		
+ri_order	int	not null		
+);
+
+create table review_category		
+(
+rc_seq	int	not null	auto_increment	primary key,
+rc_si_seq	int	null,		
+rc_name	varchar(50)	not null,		
+rc_order	int	not null		
+);
+
+create table review_category_score		
+(
+rcs_seq	int	not null	auto_increment	primary key,
+rcs_re_seq	int	null,		
+rcs_rc_seq	int	null,		
+rcs_score	int	null	default 5	
+);
+
+create table owner_info		
+(
+owi_seq	int	not null	auto_increment	primary key,
+owi_id	varchar(30)	not null,		
+owi_pwd	varchar(60)	not null,		
+owi_email	varchar(100)	not null,	
+owi_phone	varchar(30)	not null,		
+owi_nickname	varchar(30)	not null,		
+owi_si_seq	int	null		
+);
+
+create table review_owner		
+(
+ro_seq	int	not null	auto_increment	primary key,
+ro_owi_seq	int	null,		
+ro_content	varchar(255)	not null,		
+ro_ri_seq	int	null		
+);
+
+create table payment_info		
+(
+pi_seq	int	not null	auto_increment	primary key,
+pi_requirement	varchar(255)	null,		
+pi_oi_seq	int	null,		
+pi_pay_way	int	not null	default 1	
+);
